@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Father's Day, PAPA!!!! ❤️</title>
+    <style>
+        /* ----- RESET & BASE ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(145deg, #fdfcfb 0%, #e0d6c8 100%);
+            min-height: 100vh;
+            padding: 25px 20px 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.2em;
+            color: #1e2a3a;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+        .subtitle {
+            font-size: 1.3em;
+            color: #444;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        h2 {
+            color: #1e2a3a;
+            margin: 40px 0 15px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* ----- SLIDESHOW ----- */
+        .slideshow-wrapper {
+            max-width: 700px;
+            margin: 0 auto 20px;
+            position: relative;
+            background: #1a1a1a;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        .slideshow-wrapper img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            display: none;
+            transition: opacity 0.6s ease;
+        }
+
+        .slideshow-wrapper img.active {
+            display: block;
+        }
+
+        .prev,
+        .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            font-size: 28px;
+            padding: 10px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.25s;
+            backdrop-filter: blur(4px);
+        }
+
+        .prev:hover,
+        .next:hover {
+            background: rgba(0, 0, 0, 0.85);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .prev {
+            left: 12px;
+        }
+        .next {
+            right: 12px;
+        }
+
+        .slide-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 0 18px;
+            background: #1a1a1a;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #555;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .dot.active-dot {
+            background: #f1c40f;
+            transform: scale(1.25);
+        }
+
+        /* ----- IMAGE GALLERY (31 images) ----- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 16px;
+            max-width: 1100px;
+            margin: 0 auto 30px;
+            padding: 0 10px;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .gallery-grid img:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        /* ----- VIDEO GRID (2 videos) ----- */
+        .video-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto 20px;
+        }
+
+        .video-grid video {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            background: #111;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            transition: 0.25s;
+        }
+
+        .video-grid video:hover {
+            transform: scale(1.01);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ----- BUTTONS ----- */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+            margin: 30px 0 20px;
+        }
+
+        .btn {
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: 600;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.25s;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+            letter-spacing: 0.5px;
+        }
+
+        .btn-surprise {
+            background: #e74c3c;
+            color: #fff;
+        }
+
+        .btn-surprise:hover {
+            background: #c0392b;
+            transform: scale(1.04);
+            box-shadow: 0 8px 28px rgba(231, 76, 60, 0.45);
+        }
+
+        .btn-music {
+            background: #2c3e50;
+            color: #fff;
+        }
+
+        .btn-music:hover {
+            background: #1a2632;
+            transform: scale(1.04);
+            box-shadow: 0 8px 28px rgba(44, 62, 80, 0.45);
+        }
+
+        /* ----- LIGHTBOX (Modal) ----- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            backdrop-filter: blur(6px);
+        }
+
+        .modal img {
+            max-width: 92%;
+            max-height: 92%;
+            border-radius: 16px;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.15);
+        }
+
+        .modal .close-btn {
+            position: absolute;
+            top: 25px;
+            right: 40px;
+            color: #fff;
+            font-size: 50px;
+            font-weight: 300;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .modal .close-btn:hover {
+            transform: rotate(90deg);
+            color: #f1c40f;
+        }
+
+        /* ----- FLOATING HEARTS (Confetti) ----- */
+        .heart-float {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            font-size: 2.2rem;
+            animation: riseUp 3.2s ease-in forwards;
+        }
+
+        @keyframes riseUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg) scale(0.4);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-900px) rotate(720deg) scale(1.6);
+            }
+        }
+
+        /* ----- FOOTER ----- */
+        footer {
+            margin-top: 45px;
+            color: #555;
+            font-size: 0.95em;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            padding-top: 25px;
+        }
+
+        /* ----- RESPONSIVE TWEAKS ----- */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.2em;
+            }
+            .slideshow-wrapper img {
+                height: 260px;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                gap: 10px;
+            }
+            .btn {
+                padding: 12px 28px;
+                font-size: 1em;
+                width: 100%;
+                max-width: 260px;
+            }
+            .video-grid video {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== HEADER ====== -->
+    <h1>👨‍👧 Happy Father's Day!</h1>
+    <p class="subtitle">To the man who taught me and aadhya everything and got  us whatever we wished for aand were there and are to supoort all of our decisions - We love you, Papa!! Always and forever..!!!!!</p>
+
+    <!-- ====== SLIDESHOW (Top 10 Images) ====== -->
+    <h2>📸 Our Best Memories</h2>
+    <div class="slideshow-wrapper" id="slideshowWrapper">
+        <!-- Images injected by JavaScript -->
+        <button class="prev" id="prevSlide">❮</button>
+        <button class="next" id="nextSlide">❯</button>
+        <div class="slide-dots" id="dotsContainer"></div>
+    </div>
+
+    <!-- ====== FULL GALLERY (All 31 Images) ====== -->
+    <h2>🖼️ All Our Photos</h2>
+    <p style="color:#555; margin-bottom:12px;">(Click any photo to zoom in)</p>
+    <div class="gallery-grid" id="galleryGrid"></div>
+
+    <!-- ====== VIDEOS (2 Videos) ====== -->
+    <h2>🎥 Special Video Messages</h2>
+    <div class="video-grid" id="videoGrid"></div>
+
+    <!-- ====== INTERACTIVE BUTTONS ====== -->
+    <div class="btn-group">
+        <button class="btn btn-surprise" id="surpriseBtn">🎉 Surprise Dad!</button>
+        <button class="btn btn-music" id="musicBtn">🔊 Play Music</button>
+    </div>
+
+    <!-- ====== LIGHTBOX MODAL ====== -->
+    <div class="modal" id="lightboxModal">
+        <span class="close-btn" id="closeModalBtn">&times;</span>
+        <img id="modalImage" src="" alt="Enlarged view" />
+    </div>
+
+    <!-- ====== FOOTER ====== -->
+    <footer>Made with endless love ❤️ — Just for you, Dad.</footer>
+
+    <script>
+        // ==========================================================
+        //  🎯  CONFIGURATION — CHANGE THESE TO MATCH YOUR FILES
+        // ==========================================================
+
+        // 31 IMAGES: first 10 for slideshow, remaining 21 for gallery
+        const SLIDE_IMAGES = [
+            'img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg',
+            'img6.jpg', 'img7.jpg', 'img8.jpg', 'img9.jpg', 'img10.jpg'
+        ];
+
+        const GALLERY_IMAGES = [
+            'img11.jpg', 'img12.jpg', 'img13.jpg', 'img14.jpg', 'img15.jpg',
+            'img16.jpg', 'img17.jpg', 'img18.jpg', 'img19.jpg', 'img20.jpg',
+            'img21.jpg', 'img22.jpg', 'img23.jpg', 'img24.jpg', 'img25.jpg',
+            'img26.jpg', 'img27.jpg', 'img28.jpg', 'img29.jpg', 'img30.jpg',
+            'img31.jpg'
+        ];
+
+        // 2 VIDEOS
+        const VIDEO_FILES = ['video1.mp4', 'video2.mp4'];
+
+        // 1 MUSIC FILE (set to null if you don't have one)
+        const MUSIC_FILE = 'music.mp3';
+
+        // ==========================================================
+        //  🚀  JAVASCRIPT — DO NOT EDIT BELOW UNLESS YOU KNOW WHAT YOU'RE DOING
+        // ==========================================================
+
+        // ----- 1. BUILD SLIDESHOW -----
+        const wrapper = document.getElementById('slideshowWrapper');
+        const dotsContainer = document.getElementById('dotsContainer');
+        let slideIndex = 0;
+
+        // Insert images
+        SLIDE_IMAGES.forEach((src, idx) => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = `Memory ${idx + 1}`;
+            if (idx === 0) img.classList.add('active');
+            img.onerror = () => { img.style.display = 'none'; };
+            wrapper.insertBefore(img, document.querySelector('.prev'));
+        });
+
+        // Insert dots
+        SLIDE_IMAGES.forEach((_, idx) => {
+            const dot = document.createElement('button');
+            dot.className = 'dot' + (idx === 0 ? ' active-dot' : '');
+            dot.dataset.index = idx;
+            dot.addEventListener('click', () => showSlide(idx));
+            dotsContainer.appendChild(dot);
+        });
+
+        const slides = wrapper.querySelectorAll('img');
+        const dots = dotsContainer.querySelectorAll('.dot');
+
+        function showSlide(index) {
+            if (index < 0) slideIndex = slides.length - 1;
+            else if (index >= slides.length) slideIndex = 0;
+            else slideIndex = index;
+
+            slides.forEach((img, i) => {
+                img.classList.toggle('active', i === slideIndex);
+            });
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active-dot', i === slideIndex);
+            });
+        }
+
+        // Next/Prev buttons
+        document.getElementById('prevSlide').addEventListener('click', () => showSlide(slideIndex - 1));
+        document.getElementById('nextSlide').addEventListener('click', () => showSlide(slideIndex + 1));
+
+        // Auto-play every 4.5 seconds
+        setInterval(() => showSlide(slideIndex + 1), 4500);
+
+        // ----- 2. BUILD GALLERY (Click to enlarge) -----
+        const galleryGrid = document.getElementById('galleryGrid');
+        const modal = document.getElementById('lightboxModal');
+        const modalImg = document.getElementById('modalImage');
+
+        GALLERY_IMAGES.forEach(src => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = 'Family photo';
+            img.loading = 'lazy';
+            img.onerror = () => { img.style.opacity = '0.3'; };
+            img.addEventListener('click', () => {
+                modal.style.display = 'flex';
+                modalImg.src = src;
+            });
+            galleryGrid.appendChild(img);
+        });
+
+        // Close modal on background click or X button
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal || e.target === document.getElementById('closeModalBtn')) {
+                modal.style.display = 'none';
+            }
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') modal.style.display = 'none';
+        });
+
+        // ----- 3. BUILD VIDEOS -----
+        const videoGrid = document.getElementById('videoGrid');
+
+        VIDEO_FILES.forEach(src => {
+            const video = document.createElement('video');
+            video.src = src;
+            video.controls = true;
+            video.preload = 'metadata';
+            video.style.width = '100%';
+            video.style.maxWidth = '400px';
+            video.style.borderRadius = '20px';
+            video.style.background = '#111';
+            video.onerror = () => { video.style.opacity = '0.4'; };
+            videoGrid.appendChild(video);
+        });
+
+        // ----- 4. SURPRISE HEARTS (Confetti) -----
+        document.getElementById('surpriseBtn').addEventListener('click', () => {
+            const emojis = ['❤️', '💖', '✨', '🎉', '💕', '🌟', '🥰', '😘'];
+            for (let i = 0; i < 70; i++) {
+                const el = document.createElement('div');
+                el.className = 'heart-float';
+                el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                el.style.left = Math.random() * 100 + '%';
+                el.style.top = Math.random() * 100 + '%';
+                el.style.fontSize = (Math.random() * 2.2 + 1.2) + 'rem';
+                el.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+                document.body.appendChild(el);
+                setTimeout(() => el.remove(), 4500);
+            }
+        });
+
+        // ----- 5. MUSIC TOGGLE -----
+        let audio = null;
+        let isPlaying = false;
+        const musicBtn = document.getElementById('musicBtn');
+
+        musicBtn.addEventListener('click', () => {
+            if (!MUSIC_FILE) {
+                alert('No music file set! Add a file and update MUSIC_FILE in the script.');
+                return;
+            }
+
+            if (!audio) {
+                audio = new Audio(MUSIC_FILE);
+                audio.loop = true;
+                audio.volume = 0.7;
+            }
+
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                musicBtn.textContent = '🔊 Play Music';
+            } else {
+                audio.play().catch(() => {
+                    alert('Please click anywhere on the page first to allow audio!');
+                });
+                isPlaying = true;
+                musicBtn.textContent = '🔇 Pause Music';
+            }
+        });
+
+        // Stop music if user leaves the page (optional cleanup)
+        window.addEventListener('beforeunload', () => {
+            if (audio) audio.pause();
+        });
+
+        // ----- 6. HANDLE MISSING IMAGES GRACEFULLY -----
+        console.log('✅ Happy Father\'s Day site loaded successfully!');
+    </script>
+</body>
+</html>
